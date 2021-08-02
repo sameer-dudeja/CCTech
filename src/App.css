@@ -1,0 +1,40 @@
+.con {
+  height: 170px !important;
+}
+.img {
+  border-radius: 200px;
+  align-items: center;
+  /* height: 7rem;
+  width: 7rem; */
+}
+.content {
+  padding-left: 10px;
+}
+.card {
+  border-radius: 20px;
+}
+.email {
+  font-size: 13px !important;
+  font-style: italic;
+}
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #1fa2ff 0%,
+    #12d8fa 51%,
+    #1fa2ff 100%
+  );
+}
+.btn-grad {
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 4px 7px 12px 0px #0006;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}

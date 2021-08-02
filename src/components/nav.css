@@ -1,0 +1,17 @@
+.nav {
+  width: calc(100% - 2px);
+  height: 48px;
+  background-image: linear-gradient(
+    to right,
+    #1fa2ff 0%,
+    #12d8fa 51%,
+    #1fa2ff 100%
+  );
+  justify-content: center;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding-left: 2px;
+  box-shadow: 5px 7px 20px 0px #33333375;
+}
