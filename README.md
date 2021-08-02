@@ -16,4 +16,4 @@ You will also see any lint errors in the console.
 
 ###Screenshot
 
- [https://github.com/sameer-dudeja/CCTech/blob/master/screenshot/Untitled.jpg](https://github.com/sameer-dudeja/CCTech/blob/master/screenshot/Untitled.jpg).
+![https://github.com/sameer-dudeja/CCTech/blob/master/screenshot/Untitled.jpg](https://github.com/sameer-dudeja/CCTech/blob/master/screenshot/Untitled.jpg).
