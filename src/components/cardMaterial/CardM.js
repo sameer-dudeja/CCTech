@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -9,7 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import CardMedia from '@material-ui/core/CardMedia'
 import './cardm.css'
-const url = 'https://randomuser.me/api/?results=100'
+const url = 'https://randomuser.me/api/?results=50'
 const useStyles = makeStyles({
   rootCard: {
     minWidth: 275,
@@ -63,65 +64,63 @@ const CardDisplay = (data) => {
     <>
       <Container>
         <Grid container className={classes.rootCard} spacing={3}>
-          {data.map((person, cell) => {
-            const { name, location, picture, email } = person
+          {data.map((person, index) => {
+            const { name, location, picture, email, id } = person
             return (
-              <Grid item xs={4}>
-                <Grid container justifyContent='space-evenly'>
-                  <Grid key={cell} item>
-                    <Card className={classes.root} variant='outlined'>
-                      <div className={classes.root}>
-                        <div className={classes.imgContainer}>
-                          <CardMedia
-                            className={classes.img}
-                            image={picture.large}
-                            title={name.first + ' ' + name.last}
-                          />
-                        </div>
-                        <div className={classes.details}>
-                          <CardContent>
-                            <Typography variant='h5' component='h2'>
-                              {name.first + ' ' + name.last}
-                            </Typography>
-                            <Typography
-                              className={classes.title}
-                              color='textSecondary'
-                              gutterBottom
-                            >
-                              {email}
-                            </Typography>
+              <Grid item key={index}>
+                <Card className={classes.root} variant='outlined' key={index}>
+                  <div className={classes.root}>
+                    <div className={classes.imgContainer}>
+                      <CardMedia
+                        className={classes.img}
+                        image={picture.large}
+                        title={name.first + ' ' + name.last}
+                      />
+                    </div>
+                    <div className={classes.details}>
+                      <CardContent>
+                        <Typography variant='h5' component='h2'>
+                          {name.first + ' ' + name.last}
+                        </Typography>
+                        <Typography
+                          className={classes.title}
+                          color='textSecondary'
+                          gutterBottom
+                        >
+                          {email}
+                        </Typography>
 
-                            <Typography
-                              className={classes.pos}
-                              color='textSecondary'
-                            >
-                              {location.street.number +
-                                ', ' +
-                                location.street.name +
-                                ', ' +
-                                location.city}
+                        <Typography
+                          className={classes.pos}
+                          color='textSecondary'
+                        >
+                          {location.street.number +
+                            ', ' +
+                            location.street.name +
+                            ', ' +
+                            location.city}
 
-                              {location.state +
-                                ', ' +
-                                location.country +
-                                ' - ' +
-                                location.postcode}
-                            </Typography>
-                          </CardContent>
-                          <CardActions>
-                            <Button
-                              variant='outlined'
-                              color='primary'
-                              size='small'
-                            >
-                              Learn More
-                            </Button>
-                          </CardActions>
-                        </div>
-                      </div>
-                    </Card>
-                  </Grid>
-                </Grid>
+                          {location.state +
+                            ', ' +
+                            location.country +
+                            ' - ' +
+                            location.postcode}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Link to={`/person/${id.value + 1}`}>
+                          <Button
+                            variant='outlined'
+                            color='primary'
+                            size='small'
+                          >
+                            Learn More
+                          </Button>
+                        </Link>
+                      </CardActions>
+                    </div>
+                  </div>
+                </Card>
               </Grid>
             )
           })}
@@ -134,6 +133,7 @@ const CardDisplay = (data) => {
 export const CardM = () => {
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  // const [isLoading, setIsLoading] = useState(true)
   const items = 6
   const minpageNumberLimit = 0
 
@@ -147,10 +147,12 @@ export const CardM = () => {
       .then((response) => response.json())
       .then((data) => {
         setData(data.results)
+        console.log(data.results)
       })
   }
   useEffect(() => {
     getData()
+    // setIsLoading(false)
   }, [])
   for (let i = 0; i <= Math.ceil(data.length / items); i++) {
     pages.push(i)
@@ -164,7 +166,7 @@ export const CardM = () => {
     if (number > minpageNumberLimit) {
       return (
         <>
-          <div className='page_numbers'>
+          <div className='page_numbers' key={number}>
             <li
               key={number}
               id={number}

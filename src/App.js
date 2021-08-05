@@ -1,27 +1,22 @@
 import './App.css'
-import React, { useContext } from 'react'
+import React from 'react'
 
 import { Nav } from './components/Nav'
 import Home from './pages/Home/Home'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Profile from './components/profile/Profile'
-
-const styles = {
-  isStyleBootstrap: true,
-}
-
-const StyleContext = React.createContext(styles.isStyleBootstrap)
+import { AppProvider } from './components/context/Context'
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <StyleContext.Provider value={styles.isStyleBootstrap}>
+        <AppProvider>
           <Nav />
           <Route exact path='/' component={Home} />
-          <Route exact path='/person/:password' component={Profile} />
+          <Route exact path='/person/:id' component={Profile} />
           {/* <Profile /> */}
-        </StyleContext.Provider>
+        </AppProvider>
       </BrowserRouter>
     </>
   )
@@ -29,8 +24,8 @@ function App() {
 
 export default App
 
-export const useGlobalContext = () => {
-  return useContext(StyleContext)
-}
+// export const useGlobalContext = () => {
+//   return useContext(StyleContext)
+// }
 
-export { StyleContext }
+// export { StyleContext }

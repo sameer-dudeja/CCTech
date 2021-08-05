@@ -1,16 +1,13 @@
 import React from 'react'
-import { CardM } from '../../components/cardMaterial/CardM'
+
+import { useGlobalContext } from '../../components/context/Context'
 import { Card } from '../../components/cardBootstrap/Card'
-import { useGlobalContext } from '../../App'
+import { CardM } from '../../components/cardMaterial/CardM'
+
 const Home = () => {
   const { isStyleBootstrap } = useGlobalContext()
-  return (
-    <div>
-      {isStyleBootstrap === false ? <Card /> : <CardM />}
-      {/* <CardM />
-      <Card /> */}
-    </div>
-  )
+
+  return <div>{isStyleBootstrap === true ? <Card /> : <CardM />}</div>
 }
 
 export default Home

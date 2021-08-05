@@ -1,14 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import { useGlobalContext } from '../components/context/Context'
 import './nav.css'
 export const Nav = () => {
+  const { setStyleBootstrap, setStyleMaterial } = useGlobalContext()
   return (
     <div className='nav'>
-      <Button variant='contained' color='primary'>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={() => setStyleBootstrap()}
+      >
         Bootstrap
       </Button>
-      <h1>UserList</h1>
-      <Button variant='contained' color='primary'>
+      <Link to='/' className='link'>
+        <h2>UserList</h2>{' '}
+      </Link>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={() => setStyleMaterial()}
+      >
         Material
       </Button>
     </div>

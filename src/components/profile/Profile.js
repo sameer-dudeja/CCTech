@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-import { useParams } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
+    width: 500,
   },
   img: {
     display: 'flex',
@@ -61,24 +63,22 @@ const useStyles = makeStyles({
   },
 })
 
-const Profile = () => {
+const Profile = (props) => {
   const classes = useStyles()
-
-  let params = useParams()
-  const url = `https://randomuser.me/api/?${params.password}`
   const [data, setData] = useState([])
-  const getData = async () => {
-    await fetch(url)
-      .then((response) => response.json())
-      .then((res) => {
-        setData(res.results)
-        console.log(res.results)
-      })
-  }
 
   useEffect(() => {
+    const url = `https://randomuser.me/api/?${props._id}`
+    const getData = async () => {
+      await fetch(url)
+        .then((response) => response.json())
+        .then((res) => {
+          setData(res.results)
+          console.log(res)
+        })
+    }
     getData()
-  }, [])
+  }, [props._id])
   return (
     <>
       <Container>
@@ -89,19 +89,18 @@ const Profile = () => {
                 person
 
               return (
-                <Grid item xs={12}>
+                <Grid item xs={12} key={name.first}>
                   <Grid container justifyContent='space-evenly'>
-                    <Grid key={params.password} item>
+                    <Grid item>
                       <Card className={classes.root} variant='outlined'>
                         <div className={classes.main}>
-                          <div className={classes.imgContainer}>
+                          <div className={classes.details}>
                             <CardMedia
                               className={classes.img}
                               image={picture.large}
                               title={name.first + ' ' + name.last}
                             />
-                          </div>
-                          <div className={classes.details}>
+
                             <CardContent>
                               <Typography variant='h3' component='h2'>
                                 {name.title +
@@ -134,7 +133,6 @@ const Profile = () => {
                                 Phone:
                                 {' ' + phone}
                               </Typography>
-
                               <Typography
                                 className={classes.pos}
                                 color='textSecondary'
@@ -152,7 +150,17 @@ const Profile = () => {
                                   location.postcode}
                               </Typography>
                             </CardContent>
+                            <Link to='/'>
+                              <Button
+                                variant='outlined'
+                                color='primary'
+                                size='small'
+                              >
+                                Back to homepage
+                              </Button>
+                            </Link>
                           </div>
+                          <div className={classes.imgContainer}> </div>
                         </div>
                       </Card>
                     </Grid>
